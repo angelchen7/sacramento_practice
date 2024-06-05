@@ -5,4 +5,5 @@ format: html
 
 Hello world!
 
-- [Cleaning and Wrangling Data](wrangling-practice.html)
+- [Cleaning and Wrangling Data](wrangling_practice.html)
+- [test](test.html)
