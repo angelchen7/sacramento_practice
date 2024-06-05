@@ -3,6 +3,7 @@ title: "Cleaning & Wrangling"
 format: html
 editor: visual
 ---
+
 # Data Sources
 
 ```{r}
@@ -13,16 +14,20 @@ library(tidyr)
 library(readr)
 ```
 
-Code chunks
-Apple shortcut: Cmd + Option + I
+Code chunks 
+
+Apple shortcut: Cmd + Option + I 
+
 Windows shortcut: Ctrl + Alt + I
 
 ## Read in our data
+
 ```{r}
 catch_original <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/df35b.302.1")
 ```
 
 ## Explore
+
 ```{r}
 # Prints the column names of my data frame
 colnames(catch_original)
@@ -39,22 +44,28 @@ unique(catch_original$Region)
 
 # Clean and Reshape Data
 
-Pipe operator (%>%)
-Apple shortcut: Cmd + Shift + M
+Pipe operator (%\>%) 
+
+Apple shortcut: Cmd + Shift + M 
+
 Windows shortcut: Ctrl + Shift + M
 
 df
 
-Instead of writing:
-df_filtered <- filter(df, ...)
-df_selected <- select(df_filtered, ...)
+Instead of writing: 
 
-You can write:
-df_cleaned <- df %>% 
-    filter(...) %>%
-    select(...)
-    
+df_filtered \<- filter(df, ...) 
+
+df_selected \<- select(df_filtered, ...)
+
+You can write: 
+
+df_cleaned \<- df %\>% 
+filter(...) %\>% 
+select(...)
+
 ## Using select() function
+
 ```{r}
 catch_data <- catch_original %>% 
   # select only the columns we want 
@@ -72,11 +83,13 @@ head(catch_data)
 ```
 
 ## Check column types
+
 ```{r}
 glimpse(catch_data)
 ```
 
 ## Replace values in a column
+
 ```{r}
 catch_clean <- catch_data %>% 
   # change Chinook column to numeric
@@ -107,6 +120,7 @@ catch_clean[i,]
 ```
 
 ## Reshaping
+
 ```{r}
 catch_long <- catch_clean %>% 
   # pivot longer all columns except Region and Year
@@ -127,6 +141,7 @@ head(catch_wide)
 ```
 
 ## Rename columns with rename()
+
 ```{r}
 catch_long <- catch_long %>% 
   rename(catch_thousands = catch)
@@ -145,6 +160,7 @@ head(catch_long)
 ## Summary stats using group_by() and summarize()
 
 Suppose we're now interested in getting the average catch per region. We can use the split-apply-combine strategy to accomplish this!
+
 ```{r}
 unique(catch_original$Region)
 ```
@@ -170,6 +186,7 @@ n_region <- catch_long %>%
 
 head(n_region)
 ```
+
 ```{r}
 # an alternative method to do the same thing
 n_region <- catch_long %>%
@@ -179,6 +196,7 @@ head(n_region)
 ```
 
 ## Filtering rows using filter()
+
 ```{r}
 sse_catch <- catch_long %>% 
   # get all the rows where the Region is SSE
@@ -186,7 +204,6 @@ sse_catch <- catch_long %>%
 
 head(sse_catch)
 ```
-
 
 ```{r}
 # quick exercise
@@ -201,6 +218,7 @@ just_chinook <- catch_long %>%
 ```
 
 ## Sorting data using arrange()
+
 ```{r}
 mean_region <- catch_long %>% 
   group_by(Region) %>% 
@@ -222,6 +240,7 @@ head(mean_region)
 ```
 
 ## Split and combine values in columns
+
 ```{r}
 # create some fake data
 sites_df <- data.frame(site = c("HAW-101",
